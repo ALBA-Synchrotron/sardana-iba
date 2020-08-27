@@ -187,13 +187,10 @@ class ImgBeamAnalyzerCTCtrl(CounterTimerController):
     def ReadAll(self):
         if self._state != State.On:
             return
-        attr_to_read = []
-        for axis in self._axes_to_read:
-            attr_to_read.append(self._attr_list[axis])
+        attr_to_read = [self._attr_list[axis] for axis in self._axes_to_read]
         self._axes_to_read = set()
         values = self._iba.read_attributes(attr_to_read)
-        for value in values:
-            self._attrs_values[value.name.lower()] = value.value
+        self._attrs_values = {val.name.lower(): val.value for val in values}
 
     def ReadOne(self, axis):
         if self._state != State.On:
