@@ -93,7 +93,7 @@ class ImgBeamAnalyzerCTCtrl(CounterTimerController):
 
             # Configure IBA Mode to EVENT
             prop_mode = self._iba.get_property('Mode')['Mode'][0]
-            if prop_mode.lower != 'event':
+            if prop_mode.lower() != 'event':
                 self._log.warning('Changing %s Property Mode from %s to '
                                   'EVENT', self.devName, prop_mode)
                 self._iba.put_property({'Mode': 'EVENT'})
