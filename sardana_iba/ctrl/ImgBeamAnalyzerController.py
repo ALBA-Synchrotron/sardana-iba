@@ -246,7 +246,7 @@ class ImgBeamAnalyzerController(CounterTimerController):
             self.attrValues = self._ibaProxy.read_attributes(self.attrList)
             if self.__flag_backup:
                 self._doRestore()
-            self.ctrlState[0] = State.On
+            self.ctrlState = (State.On, self.ctrlState[1])
             return True
         return False
 
