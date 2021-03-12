@@ -49,7 +49,7 @@ class ImgBeamAnalyzerController(CounterTimerController):
     and each counter channel responds to one specific device attribute.
     """
 
-    class_prop = {'devName': {Description: 'ImgBeamAnalyzer Tango device',
+    ctrl_properties = {'devName': {Description: 'ImgBeamAnalyzer Tango device',
                               Type: str},
                   'attrList': {Description: 'List of attributes to read '
                                             'after the master channel',

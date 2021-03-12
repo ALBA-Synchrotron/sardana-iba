@@ -47,7 +47,7 @@ class ImgBeamAnalyzerCTCtrl(CounterTimerController):
     The controller works in event mode
     """
 
-    class_prop = {'devName': {Description: 'ImgBeamAnalyzer Tango device',
+    ctrl_properties = {'devName': {Description: 'ImgBeamAnalyzer Tango device',
                               Type: str},
                   'attrList': {Description: 'List of attributes to read '
                                             'after the master channel space '
@@ -79,7 +79,6 @@ class ImgBeamAnalyzerCTCtrl(CounterTimerController):
         self._attrs_values = {}
         self._axes_to_read = set()
         self._synchronization = AcqSynch.SoftwareTrigger
-
         try:
             # IBA:
             self._iba = PyTango.DeviceProxy(self.devName)
