@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="sardana-iba",
-    version = "0.1.0",
+    version = "0.1.1",
     description = "IBA Sardana Controller",
     author = "ALBA",
     author_email = "controls@cells.es",
