@@ -47,12 +47,12 @@ class ImgBeamAnalyzerCTCtrl(CounterTimerController):
     The controller works in event mode
     """
 
-    ctrl_properties = {'devName': {Description: 'ImgBeamAnalyzer Tango device',
-                              Type: str},
-                  'attrList': {Description: 'List of attributes to read '
-                                            'after the master channel space '
-                                            'separated',
-                               Type: str},
+    ctrl_properties = {
+        'devName': {Description: 'ImgBeamAnalyzer Tango device',
+                    Type: str},
+        'attrList': {Description: 'List of attributes to read '
+                                  'after the master channel space separated',
+                     Type: str},
                   }
 
     # only one device, the ctrl device means attributes of one IBA
@@ -148,7 +148,7 @@ class ImgBeamAnalyzerCTCtrl(CounterTimerController):
         self._axes_to_read = set()
         self._attrs_values = {}
 
-    def PreStartOneCT(self, ind):
+    def PreStartOne(self, ind):
         """Prepare the iba and the ccd for the acquisition"""
 
         try:
@@ -169,7 +169,7 @@ class ImgBeamAnalyzerCTCtrl(CounterTimerController):
             self._log.error("PreStartOneCT(%d) exception: %s", ind, e)
             return False
 
-    def StartAllCT(self):
+    def StartAll(self):
         """Open the ccd to acquire and make process this image by the iba."""
         self._ccd.Snap()
         self._started = True

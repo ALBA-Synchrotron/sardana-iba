@@ -49,11 +49,12 @@ class ImgBeamAnalyzerController(CounterTimerController):
     and each counter channel responds to one specific device attribute.
     """
 
-    ctrl_properties = {'devName': {Description: 'ImgBeamAnalyzer Tango device',
-                              Type: str},
-                  'attrList': {Description: 'List of attributes to read '
-                                            'after the master channel',
-                               Type: (str,)},
+    ctrl_properties = {
+        'devName': {Description: 'ImgBeamAnalyzer Tango device',
+                    Type: str},
+        'attrList': {Description: 'List of attributes to read '
+                                  'after the master channel',
+                     Type: (str,)},
                   # for example any one of: '[Chamber]Centroid{X,
                   # Y},Rms{X,Y},...'
                   # The master channel is the Exp.Time of the ccd
@@ -140,12 +141,12 @@ class ImgBeamAnalyzerController(CounterTimerController):
 
     ###
     # Data acquisition area:
-    def LoadOne(self, ind, value, repetitions):
+    def LoadOne(self, ind, value, repetitions, latency):
         if ind == 1:
             self.expTimeValue = value  # seconds
             self.__flag_loadOne = True
 
-    def PreStartOneCT(self, ind):
+    def PreStartOne(self, ind, value):
         """Prepare the iba and the ccd for the acquisition"""
         try:
             if ind == 1 and self.__flag_loadOne:
@@ -161,7 +162,7 @@ class ImgBeamAnalyzerController(CounterTimerController):
             self._log.error("PreStartOneCT(%d) exception: %s" % (ind, e))
             return False
 
-    def StartAllCT(self):
+    def StartAll(self):
         """Open the ccd to acquire and make process this image by the iba."""
         dictKey = self._ccdProxy.name()+'_state'
         if dictKey in self._backupDict \
