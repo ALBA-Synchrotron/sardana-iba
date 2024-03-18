@@ -134,10 +134,10 @@ class ImgBeamAnalyzerCTCtrl(CounterTimerController):
             self._state = State.On
             self._status = 'Device ready to acquire'
 
-    def StateOne(self, ind):
+    def StateOne(self, axis):
         return self._state, self._status
 
-    def LoadOne(self, ind, value, repetitions, latency_time):
+    def LoadOne(self, axis, value, repetitions, latency_time):
         if self._synchronization not in [AcqSynch.SoftwareGate,
                                          AcqSynch.SoftwareTrigger]:
             raise RuntimeError('This controller only allows software '
@@ -148,7 +148,7 @@ class ImgBeamAnalyzerCTCtrl(CounterTimerController):
         self._axes_to_read = set()
         self._attrs_values = {}
 
-    def PreStartOne(self, ind):
+    def PreStartOne(self, axis, value):
         """Prepare the iba and the ccd for the acquisition"""
 
         try:
@@ -166,7 +166,7 @@ class ImgBeamAnalyzerCTCtrl(CounterTimerController):
 
             return True
         except Exception as e:
-            self._log.error("PreStartOneCT(%d) exception: %s", ind, e)
+            self._log.error("PreStartOneCT(%d) exception: %s", axis, e)
             return False
 
     def StartAll(self):
@@ -174,7 +174,7 @@ class ImgBeamAnalyzerCTCtrl(CounterTimerController):
         self._ccd.Snap()
         self._started = True
 
-    def AbortOne(self, ind):
+    def AbortOne(self, axis):
         self._ccd.stop()
         self._stated = False
 
